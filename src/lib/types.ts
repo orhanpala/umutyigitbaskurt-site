@@ -20,6 +20,8 @@ export interface AboutRow {
   cv_url: string | null;
   contact_email: string | null;
   linkedin_url: string | null;
+  phone: string | null;
+  instagram_url: string | null;
   stat_projects: number;
   stat_certificates: number;
   stat_internships: number;
@@ -40,6 +42,7 @@ export interface ProjectRow {
   content_tr: string;
   content_en: string;
   image_url: string | null;
+  gallery_urls: string[];
   published: boolean;
   sort_order: number;
   created_at: string;

@@ -3,6 +3,7 @@
 import { saveProject } from "@/lib/actions/admin";
 import type { ProjectRow } from "@/lib/types";
 import ImageUploader from "./ImageUploader";
+import GalleryUploader from "./GalleryUploader";
 import SubmitButton from "./SubmitButton";
 import { Field, TextArea } from "./FormFields";
 
@@ -41,7 +42,14 @@ export default function ProjectForm({ project }: { project?: ProjectRow }) {
         />
       </div>
 
-      <ImageUploader name="image_url" label="Görsel" folder="projects" defaultValue={project?.image_url} />
+      <ImageUploader name="image_url" label="Kapak görseli" folder="projects" defaultValue={project?.image_url} />
+
+      <GalleryUploader
+        name="gallery_urls"
+        label="Galeri görselleri (opsiyonel, birden fazla seçebilirsiniz)"
+        folder="projects/gallery"
+        defaultValue={project?.gallery_urls}
+      />
 
       <div className="grid gap-5 sm:grid-cols-2">
         <Field

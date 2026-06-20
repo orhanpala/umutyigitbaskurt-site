@@ -49,6 +49,13 @@ export default function Footer({ locale, about }: { locale: Locale; about: About
                   </a>
                 </li>
               )}
+              {about.phone && (
+                <li>
+                  <a href={`tel:${about.phone}`} className="text-ink-soft hover:text-ink">
+                    {about.phone}
+                  </a>
+                </li>
+              )}
               {about.linkedin_url && (
                 <li>
                   <a
@@ -58,6 +65,18 @@ export default function Footer({ locale, about }: { locale: Locale; about: About
                     className="text-ink-soft hover:text-ink"
                   >
                     LinkedIn
+                  </a>
+                </li>
+              )}
+              {about.instagram_url && (
+                <li>
+                  <a
+                    href={about.instagram_url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-ink-soft hover:text-ink"
+                  >
+                    Instagram
                   </a>
                 </li>
               )}

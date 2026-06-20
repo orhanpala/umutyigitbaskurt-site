@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { getCertificates } from "@/lib/data";
-import { deleteCertificate } from "@/lib/actions/admin";
+import { deleteCertificate, moveCertificate } from "@/lib/actions/admin";
 import DeleteButton from "@/components/admin/DeleteButton";
+import MoveButtons from "@/components/admin/MoveButtons";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Sertifikalar" };
@@ -22,18 +23,25 @@ export default async function AdminCertificatesPage() {
         <table className="w-full text-left text-sm">
           <thead className="border-b border-border bg-surface text-[12px] uppercase tracking-wide text-ink-soft">
             <tr>
+              <th className="px-4 py-3">Sıra</th>
               <th className="px-4 py-3">Başlık</th>
               <th className="px-4 py-3">Veren kurum</th>
-              <th className="px-4 py-3">Sıra</th>
               <th className="px-4 py-3" />
             </tr>
           </thead>
           <tbody>
-            {certificates.map((certificate) => (
+            {certificates.map((certificate, index) => (
               <tr key={certificate.id} className="border-b border-border last:border-0">
+                <td className="px-4 py-3">
+                  <MoveButtons
+                    action={moveCertificate}
+                    id={certificate.id}
+                    disableUp={index === 0}
+                    disableDown={index === certificates.length - 1}
+                  />
+                </td>
                 <td className="px-4 py-3 font-medium">{certificate.title_tr}</td>
                 <td className="px-4 py-3 text-ink-soft">{certificate.issuer}</td>
-                <td className="px-4 py-3 text-ink-soft">{certificate.sort_order}</td>
                 <td className="px-4 py-3">
                   <div className="flex justify-end gap-4">
                     <Link href={`/admin/certificates/${certificate.id}`} className="text-[13px] font-semibold text-navy">

@@ -52,6 +52,22 @@ export default async function ProjectDetailPage({
       <article className="max-w-[760px] space-y-4 text-[15.5px] leading-[1.8] text-ink-soft [&_a]:text-navy [&_a]:underline [&_h2]:mt-6 [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-ink [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-ink [&_strong]:text-ink [&_ul]:list-disc [&_ul]:pl-5">
         <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
       </article>
+
+      {project.gallery_urls.length > 0 && (
+        <div className="mx-auto mt-12 max-w-[760px]">
+          <h2 className="mb-4 text-xl font-semibold text-ink">{dict.projects.galleryTitle}</h2>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+            {project.gallery_urls.map((url, index) => (
+              <div
+                key={`${url}-${index}`}
+                className="relative aspect-square overflow-hidden rounded-xl border border-border bg-surface"
+              >
+                <Image src={url} alt={`${title} — ${index + 1}`} fill className="object-cover" />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -135,10 +135,14 @@ export default function AboutForm({ about }: { about: AboutRow }) {
       </section>
 
       <section className="space-y-5 border-t border-border pt-8">
-        <h2 className="text-lg font-semibold">İletişim bilgileri</h2>
+        <h2 className="text-lg font-semibold">İletişim & sosyal medya</h2>
         <div className="grid gap-5 sm:grid-cols-2">
           <Field label="E-posta" name="contact_email" defaultValue={about.contact_email} />
+          <Field label="Telefon" name="phone" defaultValue={about.phone} />
+        </div>
+        <div className="grid gap-5 sm:grid-cols-2">
           <Field label="LinkedIn linki" name="linkedin_url" defaultValue={about.linkedin_url} />
+          <Field label="Instagram linki" name="instagram_url" defaultValue={about.instagram_url} />
         </div>
       </section>
 

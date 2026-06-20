@@ -17,6 +17,8 @@ const FALLBACK_ABOUT: AboutRow = {
   cv_url: null,
   contact_email: null,
   linkedin_url: null,
+  phone: null,
+  instagram_url: null,
   stat_projects: 0,
   stat_certificates: 0,
   stat_internships: 0,
@@ -33,7 +35,11 @@ export async function getAbout(): Promise<AboutRow> {
 
 export async function getProjects(opts: { onlyPublished?: boolean } = {}): Promise<ProjectRow[]> {
   const supabase = createClient();
-  let query = supabase.from("projects").select("*").order("sort_order", { ascending: true });
+  let query = supabase
+    .from("projects")
+    .select("*")
+    .order("sort_order", { ascending: true })
+    .order("created_at", { ascending: true });
   if (opts.onlyPublished !== false) query = query.eq("published", true);
   const { data } = await query;
   return (data as ProjectRow[] | null) ?? [];
@@ -77,7 +83,8 @@ export async function getCertificates(): Promise<CertificateRow[]> {
   const { data } = await supabase
     .from("certificates")
     .select("*")
-    .order("sort_order", { ascending: true });
+    .order("sort_order", { ascending: true })
+    .order("created_at", { ascending: true });
   return (data as CertificateRow[] | null) ?? [];
 }
 

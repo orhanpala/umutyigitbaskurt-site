@@ -137,14 +137,21 @@ git push -u origin main
 
 `/admin` adresinden giriş yaptıktan sonra:
 
-- **Projeler / Blog / Sertifikalar** — ekle, düzenle, sil; görseller doğrudan
-  forma sürükleyip Supabase Storage'a yüklenir.
+- **Projeler / Sertifikalar** — ekle, düzenle, sil; listede ▲/▼ tuşlarıyla
+  sırala (anasayfa ve liste sayfaları bu sıraya göre gösterir). Projelerde
+  tek kapak görseli yanında çoklu galeri görseli de yüklenebilir, proje
+  detay sayfasının altında grid olarak gösterilir.
+- **Blog** — ekle, düzenle, sil; görseller doğrudan forma sürükleyip
+  Supabase Storage'a yüklenir.
 - **Hakkımda & istatistikler** — anasayfa hero metni, biyografi (Markdown
-  destekli), eğitim/deneyim zaman çizelgesi, anasayfa istatistik kutuları
-  (proje/sertifika/staj/dil sayısı) ve iletişim bilgileri tek formdan
-  yönetilir.
+  destekli), eğitim/deneyim zaman çizelgesi, profil fotoğrafı, CV (PDF)
+  dosyası, anasayfa istatistik kutuları (proje/sertifika/staj/dil sayısı)
+  ve iletişim/sosyal medya bilgileri (e-posta, telefon, LinkedIn,
+  Instagram) tek formdan yönetilir. CV yüklendiğinde header'daki ve
+  anasayfa hero'sundaki "CV indir" butonu otomatik görünür.
 - **Mesajlar** — İletişim formundan gelen mesajları görüntüleyin, okundu
   işaretleyin veya silin.
+- **Hesap ayarları** — admin giriş şifrenizi buradan değiştirebilirsiniz.
 
 Tüm metin alanlarının Türkçe ve İngilizce versiyonları ayrı ayrı girilir;
 sitenin geneli `_tr` alanlarını, `/en` altındaki sayfalar `_en` alanlarını
@@ -185,6 +192,15 @@ src/
 supabase/
   schema.sql                  Tablolar, RLS politikaları, storage bucket
 ```
+
+## Şema güncellemesi (mevcut Supabase projesi için)
+
+`supabase/schema.sql` dosyası **idempotenttir** — daha önce `schema.sql`'i
+çalıştırdıysanız bile dosyanın tamamını Supabase Dashboard'da **SQL Editor**'e
+yapıştırıp tekrar **Run** demeniz yeterlidir; var olan tabloları/politikaları
+bozmadan eksik kolonları (`projects.gallery_urls`, `about.phone`,
+`about.instagram_url`) ekler. Tek başına bir migration dosyası çalıştırmanıza
+gerek yok.
 
 ## Bilinen notlar
 

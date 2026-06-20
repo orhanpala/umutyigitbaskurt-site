@@ -11,6 +11,7 @@ const links = [
   { href: "/admin/certificates", label: "Sertifikalar" },
   { href: "/admin/about", label: "Hakkımda & istatistikler" },
   { href: "/admin/messages", label: "Mesajlar" },
+  { href: "/admin/account", label: "Hesap ayarları" },
 ];
 
 export default function AdminNav() {

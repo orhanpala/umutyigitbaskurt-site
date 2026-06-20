@@ -33,6 +33,7 @@ export const dictionary = {
       eyebrow: "Çalışmalar",
       empty: "Henüz proje eklenmedi.",
       back: "← Tüm projeler",
+      galleryTitle: "Galeri",
     },
     blog: {
       title: "Blog",
@@ -65,6 +66,7 @@ export const dictionary = {
       success: "Mesajınız iletildi, teşekkürler.",
       error: "Mesaj gönderilemedi, lütfen tekrar deneyin.",
       directEmail: "Doğrudan e-posta",
+      phone: "Telefon",
     },
     footer: {
       rights: "Tüm hakları saklıdır.",
@@ -106,6 +108,7 @@ export const dictionary = {
       eyebrow: "Work",
       empty: "No projects yet.",
       back: "← All projects",
+      galleryTitle: "Gallery",
     },
     blog: {
       title: "Blog",
@@ -138,6 +141,7 @@ export const dictionary = {
       success: "Your message has been sent, thank you.",
       error: "Could not send the message, please try again.",
       directEmail: "Direct email",
+      phone: "Phone",
     },
     footer: {
       rights: "All rights reserved.",

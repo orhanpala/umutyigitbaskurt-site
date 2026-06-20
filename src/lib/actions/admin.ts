@@ -6,6 +6,15 @@ import { createClient } from "@/lib/supabase/server";
 import { slugify } from "@/lib/utils";
 import type { TimelineEntry } from "@/lib/types";
 
+function parseJsonArray(value: FormDataEntryValue | null): string[] {
+  try {
+    const parsed = JSON.parse(String(value ?? "[]"));
+    return Array.isArray(parsed) ? parsed.filter((item): item is string => typeof item === "string") : [];
+  } catch {
+    return [];
+  }
+}
+
 async function requireUser() {
   const supabase = createClient();
   const {
@@ -19,6 +28,27 @@ export async function signOut() {
   const supabase = createClient();
   await supabase.auth.signOut();
   redirect("/admin/login");
+}
+
+async function reorder(table: "projects" | "certificates", id: string, direction: "up" | "down") {
+  const supabase = await requireUser();
+  const { data: rows } = await supabase
+    .from(table)
+    .select("id")
+    .order("sort_order", { ascending: true })
+    .order("created_at", { ascending: true });
+  if (!rows) return;
+
+  const ids = rows.map((row: { id: string }) => row.id);
+  const index = ids.indexOf(id);
+  if (index === -1) return;
+
+  const targetIndex = direction === "up" ? index - 1 : index + 1;
+  if (targetIndex < 0 || targetIndex >= ids.length) return;
+
+  [ids[index], ids[targetIndex]] = [ids[targetIndex], ids[index]];
+
+  await Promise.all(ids.map((rowId, position) => supabase.from(table).update({ sort_order: position }).eq("id", rowId)));
 }
 
 // ---------- Projects ----------
@@ -39,6 +69,7 @@ export async function saveProject(formData: FormData) {
     content_tr: String(formData.get("content_tr") ?? ""),
     content_en: String(formData.get("content_en") ?? ""),
     image_url: String(formData.get("image_url") ?? "") || null,
+    gallery_urls: parseJsonArray(formData.get("gallery_urls")),
     published: formData.get("published") === "on",
     sort_order: Number(formData.get("sort_order") ?? 0),
     slug: slugify(slugInput || title_tr),
@@ -59,6 +90,14 @@ export async function deleteProject(formData: FormData) {
   const id = String(formData.get("id") ?? "");
   await supabase.from("projects").delete().eq("id", id);
   revalidatePath("/", "layout");
+}
+
+export async function moveProject(formData: FormData) {
+  const id = String(formData.get("id") ?? "");
+  const direction = String(formData.get("direction") ?? "");
+  await reorder("projects", id, direction === "up" ? "up" : "down");
+  revalidatePath("/", "layout");
+  revalidatePath("/admin/projects");
 }
 
 // ---------- Blog posts ----------
@@ -134,6 +173,14 @@ export async function deleteCertificate(formData: FormData) {
   revalidatePath("/", "layout");
 }
 
+export async function moveCertificate(formData: FormData) {
+  const id = String(formData.get("id") ?? "");
+  const direction = String(formData.get("direction") ?? "");
+  await reorder("certificates", id, direction === "up" ? "up" : "down");
+  revalidatePath("/", "layout");
+  revalidatePath("/admin/certificates");
+}
+
 // ---------- About / homepage stats ----------
 
 export async function updateAbout(formData: FormData) {
@@ -159,6 +206,8 @@ export async function updateAbout(formData: FormData) {
     cv_url: String(formData.get("cv_url") ?? "") || null,
     contact_email: String(formData.get("contact_email") ?? "") || null,
     linkedin_url: String(formData.get("linkedin_url") ?? "") || null,
+    phone: String(formData.get("phone") ?? "") || null,
+    instagram_url: String(formData.get("instagram_url") ?? "") || null,
     stat_projects: Number(formData.get("stat_projects") ?? 0),
     stat_certificates: Number(formData.get("stat_certificates") ?? 0),
     stat_internships: Number(formData.get("stat_internships") ?? 0),
