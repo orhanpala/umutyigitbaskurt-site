@@ -4,6 +4,7 @@ import { useState } from "react";
 import { updateAbout } from "@/lib/actions/admin";
 import type { AboutRow, TimelineEntry } from "@/lib/types";
 import ImageUploader from "./ImageUploader";
+import FileUploader from "./FileUploader";
 import SubmitButton from "./SubmitButton";
 import { Field, TextArea } from "./FormFields";
 
@@ -43,7 +44,13 @@ export default function AboutForm({ about }: { about: AboutRow }) {
           <TextArea label="Giriş paragrafı (EN)" name="lead_en" defaultValue={about.lead_en} rows={4} />
         </div>
         <ImageUploader name="photo_url" label="Profil fotoğrafı" folder="about" defaultValue={about.photo_url} />
-        <Field label="CV linki (opsiyonel, Storage'a yüklenip linklenebilir)" name="cv_url" defaultValue={about.cv_url} />
+        <FileUploader
+          name="cv_url"
+          label="CV (PDF)"
+          folder="cv"
+          accept=".pdf,.doc,.docx"
+          defaultValue={about.cv_url}
+        />
       </section>
 
       <section className="space-y-5 border-t border-border pt-8">

@@ -27,6 +27,15 @@ const config: Config = {
         lg: "12px",
         xl: "16px",
       },
+      keyframes: {
+        "page-in": {
+          "0%": { opacity: "0", transform: "translateY(10px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+      },
+      animation: {
+        "page-in": "page-in 480ms cubic-bezier(0.16, 1, 0.3, 1) both",
+      },
     },
   },
   plugins: [],

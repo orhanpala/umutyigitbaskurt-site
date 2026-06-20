@@ -44,7 +44,7 @@ export default async function ProjectDetailPage({
       <h1 className="mb-8 text-[36px] font-bold leading-tight">{title}</h1>
 
       {project.image_url && (
-        <div className="relative mb-10 aspect-[16/9] overflow-hidden rounded-2xl border border-border bg-surface">
+        <div className="relative mx-auto mb-10 aspect-[16/9] max-w-[760px] overflow-hidden rounded-2xl border border-border bg-surface">
           <Image src={project.image_url} alt={title} fill className="object-cover" />
         </div>
       )}

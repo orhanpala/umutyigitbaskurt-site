@@ -68,6 +68,10 @@ export const dictionary = {
     },
     footer: {
       rights: "Tüm hakları saklıdır.",
+      tagline:
+        "Uluslararası ticaret, lojistik ve gümrük süreçleri üzerine projeler üretiyor, öğrendiklerimi burada paylaşıyorum.",
+      pagesTitle: "Sayfalar",
+      contactTitle: "İletişim",
     },
   },
   en: {
@@ -137,6 +141,10 @@ export const dictionary = {
     },
     footer: {
       rights: "All rights reserved.",
+      tagline:
+        "I work on projects about international trade, logistics and customs processes, and share what I learn here.",
+      pagesTitle: "Pages",
+      contactTitle: "Contact",
     },
   },
 } as const satisfies Record<Locale, unknown>;

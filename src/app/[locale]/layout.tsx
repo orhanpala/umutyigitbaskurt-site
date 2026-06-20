@@ -3,6 +3,7 @@ import { isLocale, type Locale } from "@/lib/i18n/config";
 import { getAbout } from "@/lib/data";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import PageTransition from "@/components/PageTransition";
 
 export const dynamic = "force-dynamic";
 
@@ -19,8 +20,10 @@ export default async function LocaleLayout({
 
   return (
     <>
-      <Header locale={locale} />
-      <main>{children}</main>
+      <Header locale={locale} about={about} />
+      <main>
+        <PageTransition>{children}</PageTransition>
+      </main>
       <Footer locale={locale} about={about} />
     </>
   );

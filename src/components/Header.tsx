@@ -4,9 +4,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
+import type { AboutRow } from "@/lib/types";
 import LangSwitcher from "./LangSwitcher";
 
-export default function Header({ locale }: { locale: Locale }) {
+export default function Header({ locale, about }: { locale: Locale; about: AboutRow }) {
   const dict = getDictionary(locale);
   const pathname = usePathname();
   const base = `/${locale}`;
@@ -24,7 +25,7 @@ export default function Header({ locale }: { locale: Locale }) {
     <header className="sticky top-0 z-10 border-b border-border bg-white/95 backdrop-blur">
       <div className="wrap flex items-center justify-between py-5">
         <Link href={base} className="flex items-center gap-2.5">
-          <span className="text-sm font-semibold">Umut Yiğit Başkurt</span>
+          <span className="text-[17px] font-semibold tracking-tight">Umut Yiğit Başkurt</span>
         </Link>
 
         <nav className="hidden gap-8 md:flex">
@@ -47,6 +48,11 @@ export default function Header({ locale }: { locale: Locale }) {
           <Link href={`${base}/iletisim`} className="btn-primary hidden sm:inline-flex">
             {dict.nav.contactCta}
           </Link>
+          {about.cv_url && (
+            <a href={about.cv_url} target="_blank" rel="noreferrer" className="btn-outline hidden sm:inline-flex">
+              {dict.hero.ctaCV}
+            </a>
+          )}
         </div>
       </div>
     </header>
