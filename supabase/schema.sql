@@ -30,6 +30,7 @@ create table if not exists about (
   stat_internships integer not null default 0,
   stat_languages integer not null default 2,
   timeline jsonb not null default '[]'::jsonb,
+  skills jsonb not null default '[]'::jsonb,
   updated_at timestamptz not null default now(),
   constraint about_single_row check (id = 1)
 );
@@ -55,6 +56,8 @@ create table if not exists projects (
 create table if not exists blog_posts (
   id uuid primary key default gen_random_uuid(),
   slug text not null unique,
+  category_tr text not null default '',
+  category_en text not null default '',
   title_tr text not null default '',
   title_en text not null default '',
   excerpt_tr text not null default '',
@@ -98,7 +101,10 @@ create table if not exists messages (
 
 alter table about add column if not exists phone text;
 alter table about add column if not exists instagram_url text;
+alter table about add column if not exists skills jsonb not null default '[]'::jsonb;
 alter table projects add column if not exists gallery_urls jsonb not null default '[]'::jsonb;
+alter table blog_posts add column if not exists category_tr text not null default '';
+alter table blog_posts add column if not exists category_en text not null default '';
 
 -- Anasayfa/hakkımda içeriği için tek satırlık varsayılan kayıt.
 insert into about (id) values (1) on conflict (id) do nothing;

@@ -40,6 +40,19 @@ export default async function AboutPage({ params }: { params: { locale: Locale }
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{bio}</ReactMarkdown>
           </article>
 
+          {about.skills.length > 0 && (
+            <div className="mt-10">
+              <h2 className="mb-4 text-xl font-semibold">{dict.about.skillsTitle}</h2>
+              <div className="flex flex-wrap gap-2">
+                {about.skills.map((skill, index) => (
+                  <span key={index} className="pill">
+                    {locale === "tr" ? skill.label_tr : skill.label_en}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
           {about.timeline.length > 0 && (
             <div className="mt-12">
               <h2 className="mb-6 text-xl font-semibold">{dict.about.timelineTitle}</h2>
@@ -47,7 +60,14 @@ export default async function AboutPage({ params }: { params: { locale: Locale }
                 {about.timeline.map((entry, index) => (
                   <li key={index} className="relative">
                     <span className="absolute -left-[31px] top-1 h-2.5 w-2.5 rounded-full bg-navy" />
-                    <span className="font-mono text-xs font-medium text-amber">{entry.year}</span>
+                    <div className="flex items-center gap-2.5">
+                      {entry.icon_url && (
+                        <div className="relative h-8 w-8 shrink-0 overflow-hidden rounded-md border border-border bg-surface">
+                          <Image src={entry.icon_url} alt="" fill className="object-cover" />
+                        </div>
+                      )}
+                      <span className="font-mono text-xs font-medium text-amber">{entry.year}</span>
+                    </div>
                     <h3 className="mt-1 font-slab text-base font-semibold">
                       {locale === "tr" ? entry.title_tr : entry.title_en}
                     </h3>

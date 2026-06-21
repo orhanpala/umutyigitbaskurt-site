@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import type { Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { getProjects } from "@/lib/data";
-import ProjectCard from "@/components/ProjectCard";
+import ProjectsListClient from "@/components/ProjectsListClient";
 
 export const dynamic = "force-dynamic";
 
@@ -24,11 +24,12 @@ export default async function ProjectsPage({ params }: { params: { locale: Local
       {projects.length === 0 ? (
         <p className="text-ink-soft">{dict.projects.empty}</p>
       ) : (
-        <div className="grid gap-[22px] sm:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project) => (
-            <ProjectCard key={project.id} project={project} locale={locale} />
-          ))}
-        </div>
+        <ProjectsListClient
+          projects={projects}
+          locale={locale}
+          searchPlaceholder={dict.projects.searchPlaceholder}
+          noResultsLabel={dict.projects.noResults}
+        />
       )}
     </div>
   );

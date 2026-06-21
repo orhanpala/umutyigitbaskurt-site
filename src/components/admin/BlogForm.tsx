@@ -18,6 +18,11 @@ export default function BlogForm({ post }: { post?: BlogPostRow }) {
       </div>
 
       <div className="grid gap-5 sm:grid-cols-2">
+        <Field label="Kategori (TR) — örn. Lojistik" name="category_tr" defaultValue={post?.category_tr} />
+        <Field label="Kategori (EN)" name="category_en" defaultValue={post?.category_en} />
+      </div>
+
+      <div className="grid gap-5 sm:grid-cols-2">
         <TextArea label="Özet (TR)" name="excerpt_tr" defaultValue={post?.excerpt_tr} rows={3} />
         <TextArea label="Özet (EN)" name="excerpt_en" defaultValue={post?.excerpt_en} rows={3} />
       </div>

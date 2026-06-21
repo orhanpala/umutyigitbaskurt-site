@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import type { Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { getBlogPosts } from "@/lib/data";
-import BlogCard from "@/components/BlogCard";
+import BlogListClient from "@/components/BlogListClient";
 
 export const dynamic = "force-dynamic";
 
@@ -24,11 +24,13 @@ export default async function BlogPage({ params }: { params: { locale: Locale } 
       {posts.length === 0 ? (
         <p className="text-ink-soft">{dict.blog.empty}</p>
       ) : (
-        <div className="grid gap-[22px] sm:grid-cols-2 lg:grid-cols-3">
-          {posts.map((post) => (
-            <BlogCard key={post.id} post={post} locale={locale} />
-          ))}
-        </div>
+        <BlogListClient
+          posts={posts}
+          locale={locale}
+          searchPlaceholder={dict.blog.searchPlaceholder}
+          noResultsLabel={dict.blog.noResults}
+          allCategoriesLabel={dict.blog.allCategories}
+        />
       )}
     </div>
   );

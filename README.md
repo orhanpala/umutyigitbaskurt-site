@@ -141,14 +141,19 @@ git push -u origin main
   sırala (anasayfa ve liste sayfaları bu sıraya göre gösterir). Projelerde
   tek kapak görseli yanında çoklu galeri görseli de yüklenebilir, proje
   detay sayfasının altında grid olarak gösterilir.
-- **Blog** — ekle, düzenle, sil; görseller doğrudan forma sürükleyip
-  Supabase Storage'a yüklenir.
+- **Blog** — ekle, düzenle, sil; kategori/etiket alanı (liste sayfasında
+  sekme olarak filtrelenir), okuma süresi otomatik hesaplanır; görseller
+  doğrudan forma sürükleyip Supabase Storage'a yüklenir.
 - **Hakkımda & istatistikler** — anasayfa hero metni, biyografi (Markdown
-  destekli), eğitim/deneyim zaman çizelgesi, profil fotoğrafı, CV (PDF)
-  dosyası, anasayfa istatistik kutuları (proje/sertifika/staj/dil sayısı)
-  ve iletişim/sosyal medya bilgileri (e-posta, telefon, LinkedIn,
-  Instagram) tek formdan yönetilir. CV yüklendiğinde header'daki ve
-  anasayfa hero'sundaki "CV indir" butonu otomatik görünür.
+  destekli), yetkinlik/beceri etiketleri (virgülle ayrılmış TR/EN listesi),
+  eğitim/deneyim zaman çizelgesi (her girdiye isteğe bağlı bir ikon/logo
+  yüklenebilir), profil fotoğrafı, CV (PDF) dosyası, anasayfa istatistik
+  kutuları (proje/sertifika/staj/dil sayısı) ve iletişim/sosyal medya
+  bilgileri (e-posta, telefon, LinkedIn, Instagram) tek formdan yönetilir.
+  CV yüklendiğinde header'daki ve anasayfa hero'sundaki "CV indir" butonu
+  otomatik görünür.
+- **Projeler ve Blog liste sayfalarında** ziyaretçiler için anlık (client-side)
+  arama kutusu vardır.
 - **Mesajlar** — İletişim formundan gelen mesajları görüntüleyin, okundu
   işaretleyin veya silin.
 - **Hesap ayarları** — admin giriş şifrenizi buradan değiştirebilirsiniz.
@@ -198,9 +203,12 @@ supabase/
 `supabase/schema.sql` dosyası **idempotenttir** — daha önce `schema.sql`'i
 çalıştırdıysanız bile dosyanın tamamını Supabase Dashboard'da **SQL Editor**'e
 yapıştırıp tekrar **Run** demeniz yeterlidir; var olan tabloları/politikaları
-bozmadan eksik kolonları (`projects.gallery_urls`, `about.phone`,
-`about.instagram_url`) ekler. Tek başına bir migration dosyası çalıştırmanıza
-gerek yok.
+bozmadan eksik kolonları ekler. Bu turda eklenenler: `about.skills`,
+`blog_posts.category_tr`, `blog_posts.category_en` (önceki turda eklenen
+`projects.gallery_urls`, `about.phone`, `about.instagram_url` zaten
+dosyada). Zaman çizelgesi girdilerine eklenen ikon alanı (`icon_url`)
+JSONB içinde tutulduğu için ayrı bir kolon gerektirmez. Tek başına bir
+migration dosyası çalıştırmanıza gerek yok.
 
 ## Bilinen notlar
 
@@ -210,3 +218,10 @@ gerek yok.
   geçiş istenirse ayrı bir görev olarak ele alınmalıdır.
 - Admin panelinde yeni kullanıcı kaydı formu yoktur; tek admin kullanıcısı
   Supabase Dashboard'dan elle oluşturulur (bkz. yukarıdaki adımlar).
+- **Ziyaretçi istatistikleri**: `@vercel/analytics` kurulu ve root layout'a
+  eklendi; ek bir hesap/kurulum gerekmez — Vercel'e deploy ettiğinizde proje
+  panelindeki **Analytics** sekmesinden otomatik veri toplamaya başlar
+  (yerelde `npm run dev` sırasında veri göndermez).
+- **sitemap.xml**: `https://umutyigitbaskurt.com/sitemap.xml` adresinde
+  otomatik üretilir; doğru URL'ler için Vercel'de `NEXT_PUBLIC_SITE_URL`
+  ortam değişkeninin doğru ayarlı olduğundan emin olun.

@@ -4,6 +4,12 @@ export interface TimelineEntry {
   title_en: string;
   description_tr: string;
   description_en: string;
+  icon_url: string | null;
+}
+
+export interface SkillEntry {
+  label_tr: string;
+  label_en: string;
 }
 
 export interface AboutRow {
@@ -27,6 +33,7 @@ export interface AboutRow {
   stat_internships: number;
   stat_languages: number;
   timeline: TimelineEntry[];
+  skills: SkillEntry[];
   updated_at: string;
 }
 
@@ -51,6 +58,8 @@ export interface ProjectRow {
 export interface BlogPostRow {
   id: string;
   slug: string;
+  category_tr: string;
+  category_en: string;
   title_tr: string;
   title_en: string;
   excerpt_tr: string;

@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { slugify } from "@/lib/utils";
-import type { TimelineEntry } from "@/lib/types";
+import type { SkillEntry, TimelineEntry } from "@/lib/types";
 
 function parseJsonArray(value: FormDataEntryValue | null): string[] {
   try {
@@ -113,6 +113,8 @@ export async function saveBlogPost(formData: FormData) {
   const payload = {
     title_tr,
     title_en: String(formData.get("title_en") ?? ""),
+    category_tr: String(formData.get("category_tr") ?? ""),
+    category_en: String(formData.get("category_en") ?? ""),
     excerpt_tr: String(formData.get("excerpt_tr") ?? ""),
     excerpt_en: String(formData.get("excerpt_en") ?? ""),
     content_tr: String(formData.get("content_tr") ?? ""),
@@ -193,6 +195,19 @@ export async function updateAbout(formData: FormData) {
     timeline = [];
   }
 
+  const skillsTr = String(formData.get("skills_tr") ?? "")
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
+  const skillsEn = String(formData.get("skills_en") ?? "")
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
+  const skills: SkillEntry[] = Array.from({ length: Math.max(skillsTr.length, skillsEn.length) }, (_, index) => ({
+    label_tr: skillsTr[index] ?? "",
+    label_en: skillsEn[index] ?? "",
+  }));
+
   const payload = {
     eyebrow_tr: String(formData.get("eyebrow_tr") ?? ""),
     eyebrow_en: String(formData.get("eyebrow_en") ?? ""),
@@ -213,6 +228,7 @@ export async function updateAbout(formData: FormData) {
     stat_internships: Number(formData.get("stat_internships") ?? 0),
     stat_languages: Number(formData.get("stat_languages") ?? 0),
     timeline,
+    skills,
     updated_at: new Date().toISOString(),
   };
 

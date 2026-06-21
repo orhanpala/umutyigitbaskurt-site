@@ -34,6 +34,8 @@ export const dictionary = {
       empty: "Henüz proje eklenmedi.",
       back: "← Tüm projeler",
       galleryTitle: "Galeri",
+      searchPlaceholder: "Projelerde ara...",
+      noResults: "Sonuç bulunamadı.",
     },
     blog: {
       title: "Blog",
@@ -41,6 +43,10 @@ export const dictionary = {
       empty: "Henüz yazı eklenmedi.",
       back: "← Tüm yazılar",
       readMore: "Devamını oku →",
+      readingTimeSuffix: "dk okuma",
+      searchPlaceholder: "Yazılarda ara...",
+      noResults: "Sonuç bulunamadı.",
+      allCategories: "Tümü",
     },
     certificates: {
       title: "Sertifikalar",
@@ -52,6 +58,7 @@ export const dictionary = {
       eyebrow: "Hakkımda",
       title: "Hakkımda",
       timelineTitle: "Eğitim & Deneyim",
+      skillsTitle: "Yetkinlikler",
     },
     contact: {
       eyebrow: "İletişim",
@@ -67,6 +74,11 @@ export const dictionary = {
       error: "Mesaj gönderilemedi, lütfen tekrar deneyin.",
       directEmail: "Doğrudan e-posta",
       phone: "Telefon",
+    },
+    notFound: {
+      title: "Sayfa bulunamadı",
+      description: "Aradığınız sayfa taşınmış ya da hiç var olmamış olabilir.",
+      cta: "Anasayfaya dön",
     },
     footer: {
       rights: "Tüm hakları saklıdır.",
@@ -109,6 +121,8 @@ export const dictionary = {
       empty: "No projects yet.",
       back: "← All projects",
       galleryTitle: "Gallery",
+      searchPlaceholder: "Search projects...",
+      noResults: "No results found.",
     },
     blog: {
       title: "Blog",
@@ -116,6 +130,10 @@ export const dictionary = {
       empty: "No posts yet.",
       back: "← All posts",
       readMore: "Read more →",
+      readingTimeSuffix: "min read",
+      searchPlaceholder: "Search posts...",
+      noResults: "No results found.",
+      allCategories: "All",
     },
     certificates: {
       title: "Certificates",
@@ -127,6 +145,7 @@ export const dictionary = {
       eyebrow: "About",
       title: "About me",
       timelineTitle: "Education & Experience",
+      skillsTitle: "Skills",
     },
     contact: {
       eyebrow: "Contact",
@@ -142,6 +161,11 @@ export const dictionary = {
       error: "Could not send the message, please try again.",
       directEmail: "Direct email",
       phone: "Phone",
+    },
+    notFound: {
+      title: "Page not found",
+      description: "The page you're looking for may have moved or never existed.",
+      cta: "Back to home",
     },
     footer: {
       rights: "All rights reserved.",

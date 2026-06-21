@@ -5,6 +5,7 @@ import { updateAbout } from "@/lib/actions/admin";
 import type { AboutRow, TimelineEntry } from "@/lib/types";
 import ImageUploader from "./ImageUploader";
 import FileUploader from "./FileUploader";
+import InlineImageUploader from "./InlineImageUploader";
 import SubmitButton from "./SubmitButton";
 import { Field, TextArea } from "./FormFields";
 
@@ -14,10 +15,13 @@ const emptyEntry: TimelineEntry = {
   title_en: "",
   description_tr: "",
   description_en: "",
+  icon_url: null,
 };
 
 export default function AboutForm({ about }: { about: AboutRow }) {
   const [timeline, setTimeline] = useState<TimelineEntry[]>(about.timeline ?? []);
+  const skillsTrDefault = (about.skills ?? []).map((skill) => skill.label_tr).join(", ");
+  const skillsEnDefault = (about.skills ?? []).map((skill) => skill.label_en).join(", ");
 
   function updateEntry(index: number, patch: Partial<TimelineEntry>) {
     setTimeline((prev) => prev.map((entry, i) => (i === index ? { ...entry, ...patch } : entry)));
@@ -61,6 +65,26 @@ export default function AboutForm({ about }: { about: AboutRow }) {
         </div>
       </section>
 
+      <section className="space-y-5 border-t border-border pt-8">
+        <h2 className="text-lg font-semibold">Yetkinlikler</h2>
+        <p className="text-xs text-ink-soft">
+          Virgülle ayırarak girin; TR ve EN listelerindeki sıralama birbirine karşılık gelir (1. TR etiketi
+          1. EN etiketiyle eşleşir).
+        </p>
+        <div className="grid gap-5 sm:grid-cols-2">
+          <Field
+            label="Yetkinlikler (TR) — virgülle ayırın"
+            name="skills_tr"
+            defaultValue={skillsTrDefault}
+          />
+          <Field
+            label="Yetkinlikler (EN) — comma separated"
+            name="skills_en"
+            defaultValue={skillsEnDefault}
+          />
+        </div>
+      </section>
+
       <section className="space-y-4 border-t border-border pt-8">
         <h2 className="text-lg font-semibold">Eğitim & deneyim zaman çizelgesi</h2>
         <input type="hidden" name="timeline" value={JSON.stringify(timeline)} />
@@ -68,6 +92,11 @@ export default function AboutForm({ about }: { about: AboutRow }) {
         <div className="space-y-4">
           {timeline.map((entry, index) => (
             <div key={index} className="space-y-3 rounded-lg border border-border p-4">
+              <InlineImageUploader
+                value={entry.icon_url}
+                onChange={(url) => updateEntry(index, { icon_url: url })}
+                folder="about/timeline"
+              />
               <div className="grid gap-3 sm:grid-cols-[120px_1fr_1fr]">
                 <input
                   value={entry.year}

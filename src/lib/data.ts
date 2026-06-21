@@ -24,6 +24,7 @@ const FALLBACK_ABOUT: AboutRow = {
   stat_internships: 0,
   stat_languages: 2,
   timeline: [],
+  skills: [],
   updated_at: new Date(0).toISOString(),
 };
 

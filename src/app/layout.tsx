@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Zilla_Slab, Public_Sans, IBM_Plex_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const zillaSlab = Zilla_Slab({
@@ -35,7 +36,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="tr" className={`${zillaSlab.variable} ${publicSans.variable} ${ibmPlexMono.variable}`}>
-      <body className="font-sans">{children}</body>
+      <body className="font-sans">
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }

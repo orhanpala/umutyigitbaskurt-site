@@ -7,7 +7,7 @@ import remarkGfm from "remark-gfm";
 import type { Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { getBlogPostBySlug } from "@/lib/data";
-import { formatDate } from "@/lib/utils";
+import { estimateReadingMinutes, formatDate } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
 
@@ -33,6 +33,7 @@ export default async function BlogDetailPage({
 
   const title = locale === "tr" ? post.title_tr : post.title_en;
   const content = locale === "tr" ? post.content_tr : post.content_en;
+  const readingMinutes = estimateReadingMinutes(content);
 
   return (
     <div className="wrap py-16">
@@ -40,9 +41,10 @@ export default async function BlogDetailPage({
         {dict.blog.back}
       </Link>
 
-      {post.published_at && (
-        <span className="mb-4 block font-mono text-xs text-ink-soft">{formatDate(post.published_at, locale)}</span>
-      )}
+      <span className="mb-4 block font-mono text-xs text-ink-soft">
+        {post.published_at && `${formatDate(post.published_at, locale)} · `}
+        {readingMinutes} {dict.blog.readingTimeSuffix}
+      </span>
       <h1 className="mb-8 text-[36px] font-bold leading-tight">{title}</h1>
 
       {post.cover_image_url && (
