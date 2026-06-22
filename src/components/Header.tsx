@@ -23,7 +23,7 @@ export default function Header({ locale, about }: { locale: Locale; about: About
   ];
 
   return (
-    <header className="sticky top-0 z-10 border-b border-border bg-white/95 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-border bg-white/95 backdrop-blur">
       <div className="wrap flex items-center justify-between py-5">
         <Link href={base} className="flex items-center gap-2.5">
           <span className="text-[17px] font-semibold tracking-tight">Umut Yiğit Başkurt</span>
