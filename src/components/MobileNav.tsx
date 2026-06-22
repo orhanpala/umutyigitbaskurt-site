@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
@@ -22,8 +23,13 @@ export default function MobileNav({
   contactLabel: string;
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
   const base = `/${locale}`;
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
@@ -35,6 +41,55 @@ export default function MobileNav({
   function close() {
     setIsOpen(false);
   }
+
+  // Portaled to <body>: the header's backdrop-blur establishes a containing
+  // block for `position: fixed` descendants in Chromium, which would shrink
+  // this overlay to the header's own height instead of the full viewport.
+  const overlay = (
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ y: "-100%" }}
+          animate={{ y: 0 }}
+          exit={{ y: "-100%" }}
+          transition={{ duration: 0.35, ease: "easeOut" }}
+          className="fixed inset-0 z-40 flex flex-col overflow-y-auto bg-white px-6 pb-10 pt-28"
+        >
+          <nav className="flex flex-1 flex-col">
+            {links.map((link, index) => {
+              const isCurrent = link.href === base ? pathname === base : pathname.startsWith(link.href);
+              return (
+                <motion.div
+                  key={link.href}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.05, duration: 0.3, ease: "easeOut" }}
+                  className="border-b border-border"
+                >
+                  <Link
+                    href={link.href}
+                    onClick={close}
+                    className={`block py-4 font-slab text-[32px] font-semibold ${
+                      isCurrent ? "text-navy" : "text-ink"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                </motion.div>
+              );
+            })}
+          </nav>
+
+          <div className="flex flex-col items-start gap-6 pt-8">
+            <LangSwitcher locale={locale} />
+            <Link href={`${base}/iletisim`} onClick={close} className="btn-primary w-full justify-center">
+              {contactLabel}
+            </Link>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
 
   return (
     <>
@@ -62,49 +117,7 @@ export default function MobileNav({
         />
       </button>
 
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ y: "-100%" }}
-            animate={{ y: 0 }}
-            exit={{ y: "-100%" }}
-            transition={{ duration: 0.35, ease: "easeOut" }}
-            className="fixed inset-0 z-40 flex flex-col overflow-y-auto bg-white px-6 pb-10 pt-28"
-          >
-            <nav className="flex flex-1 flex-col">
-              {links.map((link, index) => {
-                const isCurrent = link.href === base ? pathname === base : pathname.startsWith(link.href);
-                return (
-                  <motion.div
-                    key={link.href}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.05, duration: 0.3, ease: "easeOut" }}
-                    className="border-b border-border"
-                  >
-                    <Link
-                      href={link.href}
-                      onClick={close}
-                      className={`block py-4 font-slab text-[32px] font-semibold ${
-                        isCurrent ? "text-navy" : "text-ink"
-                      }`}
-                    >
-                      {link.label}
-                    </Link>
-                  </motion.div>
-                );
-              })}
-            </nav>
-
-            <div className="flex flex-col items-start gap-6 pt-8">
-              <LangSwitcher locale={locale} />
-              <Link href={`${base}/iletisim`} onClick={close} className="btn-primary w-full justify-center">
-                {contactLabel}
-              </Link>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {mounted && createPortal(overlay, document.body)}
     </>
   );
 }
