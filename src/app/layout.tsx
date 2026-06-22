@@ -31,6 +31,10 @@ export const metadata: Metadata = {
   },
   description:
     "Umut Yiğit Başkurt — Uluslararası Ticaret öğrencisi. Projeler, sertifikalar ve blog yazıları.",
+  icons: {
+    icon: "/icon.svg",
+    apple: "/apple-icon.png",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
