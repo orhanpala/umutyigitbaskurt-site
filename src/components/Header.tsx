@@ -6,6 +6,7 @@ import type { Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import type { AboutRow } from "@/lib/types";
 import LangSwitcher from "./LangSwitcher";
+import MobileNav from "./MobileNav";
 
 export default function Header({ locale, about }: { locale: Locale; about: AboutRow }) {
   const dict = getDictionary(locale);
@@ -45,14 +46,15 @@ export default function Header({ locale, about }: { locale: Locale; about: About
 
         <div className="flex items-center gap-4">
           <LangSwitcher locale={locale} />
-          <Link href={`${base}/iletisim`} className="btn-primary hidden sm:inline-flex">
+          <Link href={`${base}/iletisim`} className="btn-primary hidden md:inline-flex">
             {dict.nav.contactCta}
           </Link>
           {about.cv_url && (
-            <a href={about.cv_url} target="_blank" rel="noreferrer" className="btn-outline hidden sm:inline-flex">
+            <a href={about.cv_url} target="_blank" rel="noreferrer" className="btn-outline hidden md:inline-flex">
               {dict.hero.ctaCV}
             </a>
           )}
+          <MobileNav locale={locale} links={links} contactLabel={dict.nav.contactCta} />
         </div>
       </div>
     </header>
