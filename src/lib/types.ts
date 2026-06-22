@@ -20,6 +20,8 @@ export interface AboutRow {
   headline_en: string;
   lead_tr: string;
   lead_en: string;
+  manifesto_tr: string;
+  manifesto_en: string;
   bio_tr: string;
   bio_en: string;
   photo_url: string | null;

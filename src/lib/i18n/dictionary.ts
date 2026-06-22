@@ -24,9 +24,14 @@ export const dictionary = {
     home: {
       projectsTag: "Seçili çalışmalar",
       projectsTitle: "Projeler",
+      postsTag: "Güncel içerik",
+      postsTitle: "Son yazılar",
       certificatesTag: "Belgelenmiş yetkinlikler",
       certificatesTitle: "Sertifikalar",
       viewAll: "Tümünü gör →",
+      ctaTitle: "Birlikte çalışalım",
+      ctaLead:
+        "Bir proje fikriniz mi var, staj ya da iş birliği için mi yazıyorsunuz? Aşağıdaki butondan bana ulaşabilirsiniz.",
     },
     projects: {
       title: "Projeler",
@@ -111,9 +116,13 @@ export const dictionary = {
     home: {
       projectsTag: "Selected work",
       projectsTitle: "Projects",
+      postsTag: "Latest content",
+      postsTitle: "Latest posts",
       certificatesTag: "Documented skills",
       certificatesTitle: "Certificates",
       viewAll: "View all →",
+      ctaTitle: "Let's work together",
+      ctaLead: "Have a project idea, or reaching out about an internship or collaboration? Get in touch using the button below.",
     },
     projects: {
       title: "Projects",

@@ -58,6 +58,18 @@ export default function AboutForm({ about }: { about: AboutRow }) {
       </section>
 
       <section className="space-y-5 border-t border-border pt-8">
+        <h2 className="text-lg font-semibold">Manifesto bandı (anasayfa)</h2>
+        <p className="text-xs text-ink-soft">
+          Hero&apos;nun hemen altında, koyu zemin üzerinde büyük bir alıntı olarak gösterilir. Boş bırakılırsa bu
+          bölüm görünmez.
+        </p>
+        <div className="grid gap-5 sm:grid-cols-2">
+          <TextArea label="Manifesto cümlesi (TR)" name="manifesto_tr" defaultValue={about.manifesto_tr} rows={3} />
+          <TextArea label="Manifesto cümlesi (EN)" name="manifesto_en" defaultValue={about.manifesto_en} rows={3} />
+        </div>
+      </section>
+
+      <section className="space-y-5 border-t border-border pt-8">
         <h2 className="text-lg font-semibold">Hakkımda metni</h2>
         <div className="grid gap-5 sm:grid-cols-2">
           <TextArea label="Biyografi — Markdown (TR)" name="bio_tr" defaultValue={about.bio_tr} rows={10} />

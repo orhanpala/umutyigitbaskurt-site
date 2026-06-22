@@ -203,12 +203,11 @@ supabase/
 `supabase/schema.sql` dosyası **idempotenttir** — daha önce `schema.sql`'i
 çalıştırdıysanız bile dosyanın tamamını Supabase Dashboard'da **SQL Editor**'e
 yapıştırıp tekrar **Run** demeniz yeterlidir; var olan tabloları/politikaları
-bozmadan eksik kolonları ekler. Bu turda eklenenler: `about.skills`,
-`blog_posts.category_tr`, `blog_posts.category_en` (önceki turda eklenen
-`projects.gallery_urls`, `about.phone`, `about.instagram_url` zaten
-dosyada). Zaman çizelgesi girdilerine eklenen ikon alanı (`icon_url`)
-JSONB içinde tutulduğu için ayrı bir kolon gerektirmez. Tek başına bir
-migration dosyası çalıştırmanıza gerek yok.
+bozmadan eksik kolonları ekler. Bu turda eklenenler: `about.manifesto_tr`,
+`about.manifesto_en` (anasayfadaki manifesto bandı için). Önceki turlarda
+eklenen `about.skills`, `blog_posts.category_tr/en`, `projects.gallery_urls`,
+`about.phone`, `about.instagram_url` zaten dosyada. Tek başına bir migration
+dosyası çalıştırmanıza gerek yok.
 
 ## Bilinen notlar
 

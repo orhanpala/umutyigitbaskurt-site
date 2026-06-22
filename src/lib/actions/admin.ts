@@ -215,6 +215,8 @@ export async function updateAbout(formData: FormData) {
     headline_en: String(formData.get("headline_en") ?? ""),
     lead_tr: String(formData.get("lead_tr") ?? ""),
     lead_en: String(formData.get("lead_en") ?? ""),
+    manifesto_tr: String(formData.get("manifesto_tr") ?? ""),
+    manifesto_en: String(formData.get("manifesto_en") ?? ""),
     bio_tr: String(formData.get("bio_tr") ?? ""),
     bio_en: String(formData.get("bio_en") ?? ""),
     photo_url: String(formData.get("photo_url") ?? "") || null,

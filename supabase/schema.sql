@@ -17,6 +17,8 @@ create table if not exists about (
   headline_en text not null default '',
   lead_tr text not null default '',
   lead_en text not null default '',
+  manifesto_tr text not null default '',
+  manifesto_en text not null default '',
   bio_tr text not null default '',
   bio_en text not null default '',
   photo_url text,
@@ -102,6 +104,8 @@ create table if not exists messages (
 alter table about add column if not exists phone text;
 alter table about add column if not exists instagram_url text;
 alter table about add column if not exists skills jsonb not null default '[]'::jsonb;
+alter table about add column if not exists manifesto_tr text not null default '';
+alter table about add column if not exists manifesto_en text not null default '';
 alter table projects add column if not exists gallery_urls jsonb not null default '[]'::jsonb;
 alter table blog_posts add column if not exists category_tr text not null default '';
 alter table blog_posts add column if not exists category_en text not null default '';

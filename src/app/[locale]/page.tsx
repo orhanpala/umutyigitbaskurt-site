@@ -2,8 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
-import { getAbout, getCertificates, getProjects } from "@/lib/data";
+import { getAbout, getBlogPosts, getCertificates, getProjects } from "@/lib/data";
 import ProjectCard from "@/components/ProjectCard";
+import BlogCard from "@/components/BlogCard";
 import CertificateCard from "@/components/CertificateCard";
 import StatBox from "@/components/StatBox";
 
@@ -12,15 +13,17 @@ export const dynamic = "force-dynamic";
 export default async function HomePage({ params }: { params: { locale: Locale } }) {
   const { locale } = params;
   const dict = getDictionary(locale);
-  const [about, projects, certificates] = await Promise.all([
+  const [about, projects, posts, certificates] = await Promise.all([
     getAbout(),
     getProjects(),
+    getBlogPosts(),
     getCertificates(),
   ]);
 
   const eyebrow = locale === "tr" ? about.eyebrow_tr : about.eyebrow_en;
   const headline = locale === "tr" ? about.headline_tr : about.headline_en;
   const lead = locale === "tr" ? about.lead_tr : about.lead_en;
+  const manifesto = locale === "tr" ? about.manifesto_tr : about.manifesto_en;
 
   return (
     <>
@@ -63,6 +66,17 @@ export default async function HomePage({ params }: { params: { locale: Locale } 
         </div>
       </section>
 
+      {manifesto && (
+        <div className="bg-navy-deep py-20">
+          <div className="wrap text-center">
+            <p className="mx-auto max-w-[760px] font-slab text-[26px] italic leading-snug text-white sm:text-[34px]">
+              “{manifesto}”
+            </p>
+            <span className="mt-6 block font-mono text-xs text-[#9FC0E8]">— Umut Yiğit Başkurt</span>
+          </div>
+        </div>
+      )}
+
       <div className="wrap grid grid-cols-2 gap-4 pb-20 sm:grid-cols-4">
         <StatBox value={about.stat_projects} label={dict.stats.projects} />
         <StatBox value={about.stat_certificates} label={dict.stats.certificates} />
@@ -84,6 +98,25 @@ export default async function HomePage({ params }: { params: { locale: Locale } 
           <div className="grid gap-[22px] sm:grid-cols-2 lg:grid-cols-3">
             {projects.slice(0, 3).map((project) => (
               <ProjectCard key={project.id} project={project} locale={locale} />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {posts.length > 0 && (
+        <div className="wrap mt-20">
+          <div className="mb-7 flex items-end justify-between">
+            <div>
+              <span className="eyebrow mb-2 block">{dict.home.postsTag}</span>
+              <h2 className="text-[28px] font-semibold">{dict.home.postsTitle}</h2>
+            </div>
+            <Link href={`/${locale}/blog`} className="text-[13.5px] font-semibold text-navy">
+              {dict.home.viewAll}
+            </Link>
+          </div>
+          <div className="grid gap-[22px] sm:grid-cols-2 lg:grid-cols-3">
+            {posts.slice(0, 3).map((post) => (
+              <BlogCard key={post.id} post={post} locale={locale} />
             ))}
           </div>
         </div>
@@ -111,6 +144,18 @@ export default async function HomePage({ params }: { params: { locale: Locale } 
           </div>
         </div>
       )}
+
+      <div className="mt-[90px] bg-surface py-20">
+        <div className="wrap text-center">
+          <h2 className="font-slab text-[32px] font-bold text-ink sm:text-[40px]">{dict.home.ctaTitle}</h2>
+          <p className="mx-auto mt-4 max-w-[480px] text-[15.5px] leading-relaxed text-ink-soft">
+            {dict.home.ctaLead}
+          </p>
+          <Link href={`/${locale}/iletisim`} className="btn-primary mt-8 inline-flex">
+            {dict.nav.contactCta}
+          </Link>
+        </div>
+      </div>
     </>
   );
 }

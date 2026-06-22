@@ -11,6 +11,8 @@ const FALLBACK_ABOUT: AboutRow = {
     "İstanbul'da uluslararası ticaret okuyorum; tedarik zincirleri, gümrük süreçleri ve ihracat operasyonları üzerine projeler üretiyor, edindiğim deneyimleri burada paylaşıyorum.",
   lead_en:
     "I study international trade in Istanbul; I work on projects about supply chains, customs processes and export operations, and share what I learn here.",
+  manifesto_tr: "Öğrenmek, sahada bizzat görmeden tamamlanmaz.",
+  manifesto_en: "Learning isn't complete until you've seen it in the field.",
   bio_tr: "Bu metin admin panelden düzenlenebilir.",
   bio_en: "This text can be edited from the admin panel.",
   photo_url: null,
