@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import type { Locale } from "@/lib/i18n/config";
 import type { BlogPostRow } from "@/lib/types";
 import BlogCard from "./BlogCard";
+import { StaggerGrid, StaggerItem } from "./motion/StaggerGrid";
 
 export default function BlogListClient({
   posts,
@@ -83,11 +84,13 @@ export default function BlogListClient({
       {filtered.length === 0 ? (
         <p className="text-ink-soft">{noResultsLabel}</p>
       ) : (
-        <div className="grid gap-[22px] sm:grid-cols-2 lg:grid-cols-3">
+        <StaggerGrid className="grid gap-[22px] sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((post) => (
-            <BlogCard key={post.id} post={post} locale={locale} />
+            <StaggerItem key={post.id}>
+              <BlogCard post={post} locale={locale} />
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerGrid>
       )}
     </div>
   );

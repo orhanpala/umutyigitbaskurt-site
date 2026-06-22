@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import type { Locale } from "@/lib/i18n/config";
 import type { ProjectRow } from "@/lib/types";
 import ProjectCard from "./ProjectCard";
+import { StaggerGrid, StaggerItem } from "./motion/StaggerGrid";
 
 export default function ProjectsListClient({
   projects,
@@ -41,11 +42,13 @@ export default function ProjectsListClient({
       {filtered.length === 0 ? (
         <p className="text-ink-soft">{noResultsLabel}</p>
       ) : (
-        <div className="grid gap-[22px] sm:grid-cols-2 lg:grid-cols-3">
+        <StaggerGrid className="grid gap-[22px] sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((project) => (
-            <ProjectCard key={project.id} project={project} locale={locale} />
+            <StaggerItem key={project.id}>
+              <ProjectCard project={project} locale={locale} />
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerGrid>
       )}
     </div>
   );

@@ -3,6 +3,7 @@ import type { Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { getCertificates } from "@/lib/data";
 import CertificateCard from "@/components/CertificateCard";
+import { StaggerGrid, StaggerItem } from "@/components/motion/StaggerGrid";
 
 export const dynamic = "force-dynamic";
 
@@ -24,17 +25,13 @@ export default async function CertificatesPage({ params }: { params: { locale: L
       {certificates.length === 0 ? (
         <p className="text-ink-soft">{dict.certificates.empty}</p>
       ) : (
-        <div className="grid gap-[18px] sm:grid-cols-2 lg:grid-cols-3">
+        <StaggerGrid className="grid gap-[18px] sm:grid-cols-2 lg:grid-cols-3">
           {certificates.map((certificate, index) => (
-            <CertificateCard
-              key={certificate.id}
-              certificate={certificate}
-              locale={locale}
-              index={index}
-              variant="light"
-            />
+            <StaggerItem key={certificate.id}>
+              <CertificateCard certificate={certificate} locale={locale} index={index} variant="light" />
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerGrid>
       )}
     </div>
   );

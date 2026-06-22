@@ -7,6 +7,8 @@ import ProjectCard from "@/components/ProjectCard";
 import BlogCard from "@/components/BlogCard";
 import CertificateCard from "@/components/CertificateCard";
 import StatBox from "@/components/StatBox";
+import FadeInUp from "@/components/motion/FadeInUp";
+import { StaggerGrid, StaggerItem } from "@/components/motion/StaggerGrid";
 
 export const dynamic = "force-dynamic";
 
@@ -67,22 +69,30 @@ export default async function HomePage({ params }: { params: { locale: Locale } 
       </section>
 
       {manifesto && (
-        <div className="bg-navy-deep py-20">
+        <FadeInUp className="bg-navy-deep py-20">
           <div className="wrap text-center">
             <p className="mx-auto max-w-[760px] font-slab text-[26px] italic leading-snug text-white sm:text-[34px]">
               “{manifesto}”
             </p>
             <span className="mt-6 block font-mono text-xs text-[#9FC0E8]">— Umut Yiğit Başkurt</span>
           </div>
-        </div>
+        </FadeInUp>
       )}
 
-      <div className="wrap grid grid-cols-2 gap-4 pb-20 sm:grid-cols-4">
-        <StatBox value={about.stat_projects} label={dict.stats.projects} />
-        <StatBox value={about.stat_certificates} label={dict.stats.certificates} />
-        <StatBox value={about.stat_internships} label={dict.stats.internships} />
-        <StatBox value={about.stat_languages} label={dict.stats.languages} />
-      </div>
+      <StaggerGrid className="wrap grid grid-cols-2 gap-4 pb-20 sm:grid-cols-4">
+        <StaggerItem>
+          <StatBox value={about.stat_projects} label={dict.stats.projects} />
+        </StaggerItem>
+        <StaggerItem>
+          <StatBox value={about.stat_certificates} label={dict.stats.certificates} />
+        </StaggerItem>
+        <StaggerItem>
+          <StatBox value={about.stat_internships} label={dict.stats.internships} />
+        </StaggerItem>
+        <StaggerItem>
+          <StatBox value={about.stat_languages} label={dict.stats.languages} />
+        </StaggerItem>
+      </StaggerGrid>
 
       {projects.length > 0 && (
         <div className="wrap">
@@ -95,11 +105,13 @@ export default async function HomePage({ params }: { params: { locale: Locale } 
               {dict.home.viewAll}
             </Link>
           </div>
-          <div className="grid gap-[22px] sm:grid-cols-2 lg:grid-cols-3">
+          <StaggerGrid className="grid gap-[22px] sm:grid-cols-2 lg:grid-cols-3">
             {projects.slice(0, 3).map((project) => (
-              <ProjectCard key={project.id} project={project} locale={locale} />
+              <StaggerItem key={project.id}>
+                <ProjectCard project={project} locale={locale} />
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerGrid>
         </div>
       )}
 
@@ -114,11 +126,13 @@ export default async function HomePage({ params }: { params: { locale: Locale } 
               {dict.home.viewAll}
             </Link>
           </div>
-          <div className="grid gap-[22px] sm:grid-cols-2 lg:grid-cols-3">
+          <StaggerGrid className="grid gap-[22px] sm:grid-cols-2 lg:grid-cols-3">
             {posts.slice(0, 3).map((post) => (
-              <BlogCard key={post.id} post={post} locale={locale} />
+              <StaggerItem key={post.id}>
+                <BlogCard post={post} locale={locale} />
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerGrid>
         </div>
       )}
 
@@ -136,16 +150,18 @@ export default async function HomePage({ params }: { params: { locale: Locale } 
                 {dict.home.viewAll}
               </Link>
             </div>
-            <div className="grid gap-[18px] sm:grid-cols-2 lg:grid-cols-3">
+            <StaggerGrid className="grid gap-[18px] sm:grid-cols-2 lg:grid-cols-3">
               {certificates.slice(0, 3).map((certificate, index) => (
-                <CertificateCard key={certificate.id} certificate={certificate} locale={locale} index={index} variant="dark" />
+                <StaggerItem key={certificate.id}>
+                  <CertificateCard certificate={certificate} locale={locale} index={index} variant="dark" />
+                </StaggerItem>
               ))}
-            </div>
+            </StaggerGrid>
           </div>
         </div>
       )}
 
-      <div className="mt-[90px] bg-surface py-20">
+      <FadeInUp className="mt-[90px] bg-surface py-20">
         <div className="wrap text-center">
           <h2 className="font-slab text-[32px] font-bold text-ink sm:text-[40px]">{dict.home.ctaTitle}</h2>
           <p className="mx-auto mt-4 max-w-[480px] text-[15.5px] leading-relaxed text-ink-soft">
@@ -155,7 +171,7 @@ export default async function HomePage({ params }: { params: { locale: Locale } 
             {dict.nav.contactCta}
           </Link>
         </div>
-      </div>
+      </FadeInUp>
     </>
   );
 }
